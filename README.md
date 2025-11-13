@@ -35,7 +35,7 @@
     <div id="question">Busy ka ba?</div>
     <button id="yes">Yes</button>
     <button id="no">No</button>
-    <div id="message">sabi ko nga gusto moko!</div>
+    <div id="message">penge kiss bi!</div>
 
     <script>
         const yesBtn = document.getElementById('yes');
