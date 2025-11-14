@@ -7,33 +7,33 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> <!-- Confetti library -->
     <style>
         body {
-            font-family: 'Dancing Script', cursive; /* Keeping the fun cursive font, but making it bolder */
+            font-family: 'Dancing Script', cursive; 
             text-align: center;
             margin-top: 100px;
-            background-color: #FFB6C1; /* Soft pink background */
-            background-image: linear-gradient(to bottom, #FFB6C1, #FFC0CB); /* Gradient for extra eye-catchiness */
-            color: #8B0000; /* Dark red text for contrast */
+            background-color: #FFB6C1; 
+            background-image: linear-gradient(to bottom, #FFB6C1, #FFC0CB); 
+            color: #8B0000; 
         }
         #question {
-            font-size: 36px; /* Bigger and bolder for eye-catching effect */
+            font-size: 36px; 
             font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Shadow for depth */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
         }
         button {
-            font-size: 20px; /* Slightly larger */
-            padding: 15px 30px; /* More padding for better clickability */
+            font-size: 20px; 
+            padding: 15px 30px; 
             margin: 15px;
             cursor: pointer;
-            border: 3px solid #FF69B4; /* Pink border */
-            border-radius: 10px; /* Rounded corners */
-            background-color: #FFF0F5; /* Light pink button background */
-            color: #8B0000; /* Matching text color */
-            font-family: 'Dancing Script', cursive; /* Consistent font */
-            transition: all 0.3s ease; /* Smooth hover effect */
+            border: 3px solid #FF69B4; 
+            border-radius: 10px; 
+            background-color: #FFF0F5; 
+            color: #8B0000; 
+            font-family: 'Dancing Script', cursive; 
+            transition: all 0.3s ease; 
         }
         button:hover {
-            background-color: #FF69B4; /* Darker pink on hover */
+            background-color: #FF69B4; 
             color: white;
         }
         #no {
@@ -41,13 +41,13 @@
         }
         #message {
             display: none;
-            font-size: 32px; /* Eye-catching size */
-            color: #DC143C; /* Crimson for emphasis */
+            font-size: 32px;
+            color: #DC143C; 
             margin-top: 20px;
-            border: 4px solid #FF1493; /* Hot pink border around the message */
+            border: 4px solid #FF1493; 
             border-radius: 15px;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for readability */
+            background-color: rgba(255, 255, 255, 0.8); 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
     </style>
@@ -64,13 +64,22 @@
         const question = document.getElementById('question');
         const message = document.getElementById('message');
 
-        // Move No button on hover
-        noBtn.addEventListener('mouseover', () => {
+        // Function to move the No button randomly
+        function moveNoButton() {
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 100);
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
             noBtn.style.position = 'absolute';
+        }
+
+        // Move No button on hover (desktop)
+        noBtn.addEventListener('mouseover', moveNoButton);
+
+        // Move No button on touch start (mobile) - this fixes the "stuck" issue on iOS/Android
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior to avoid accidental clicks
+            moveNoButton();
         });
 
         // On Yes click, show message and trigger confetti
@@ -91,6 +100,8 @@
         noBtn.addEventListener('click', () => {
             // Reset position and visibility
             noBtn.style.position = 'static';
+            noBtn.style.left = '';
+            noBtn.style.top = '';
             question.style.display = 'block';
             yesBtn.style.display = 'inline-block';
             noBtn.style.display = 'inline-block';
